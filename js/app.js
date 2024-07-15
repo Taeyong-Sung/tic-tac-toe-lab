@@ -1,11 +1,20 @@
 /*-------------------------------- Constants --------------------------------*/
+const winningCombos = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
 
 /*---------------------------- Variables (state) ----------------------------*/
 let board, winner, turn, tie;
 
 /*------------------------ Cached Element References ------------------------*/
 const squareEls = document.querySelectorAll(".sqr");
-const messageEl = document.querySelectorAll("#message");
+const messageEl = document.querySelector("#message");
 
 /*-------------------------------- Functions --------------------------------*/
 const init = () => {
@@ -13,6 +22,7 @@ const init = () => {
   turn = "X";
   winner = false;
   tie = false;
+
   // console.log('init has been invoked');
   render();
 };
@@ -20,6 +30,7 @@ const init = () => {
 const render = () => {
   // console.log('render invoked');
   updateBoard();
+  updateMessage();
 };
 
 function updateBoard() {
@@ -37,6 +48,18 @@ function updateBoard() {
     }
   });
 }
+
+function updateMessage() {
+  if (!winner && !tie) {
+    messageEl.textContent = `It is ${turn}'s turn`;
+  } else if (!winner && tie) {
+    messageEl.textContent = "Cat's game meow!!!";
+  } else {
+    messageEl.textContent = `${turn} wins the game!`;
+  }
+}
+
+function handleClick(evt) {}
 
 /*----------------------------- Event Listeners -----------------------------*/
 init();
